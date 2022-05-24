@@ -3,14 +3,16 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import React, { FC, ReactElement, useMemo } from 'react';
+import React, { FC, ReactElement, useCallback, useMemo } from 'react';
 import { Row, Icon, Text, Chip } from '@zextras/carbonio-design-system';
 import { includes, map, reduce } from 'lodash';
 import styled from 'styled-components';
-
-import { useTags, ZIMBRA_STANDARD_COLORS } from '@zextras/carbonio-shell-ui';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { useTags, ZIMBRA_STANDARD_COLORS, runSearch } from '@zextras/carbonio-shell-ui';
 import { useTranslation } from 'react-i18next';
 import { EventType } from '../../types/event';
+import { CALENDAR_ROUTE } from '../../constants';
 
 const TagChip = styled(Chip)`
 	margin-left: ${({ theme }): string => theme.sizes.padding.extrasmall};
@@ -43,6 +45,25 @@ const TagsRow: FC<{ event: EventType; hideIcon: boolean }> = ({
 	);
 	const tagLabel = useMemo(() => t('label.tags', 'Tags'), [t]);
 
+	const triggerSearch = useCallback(
+		(tagToSearch) =>
+			runSearch(
+				[
+					{
+						avatarBackground: tagToSearch?.color,
+						avatarIcon: 'Tag',
+						background: 'gray2',
+						hasAvatar: true,
+						isGeneric: false,
+						isQueryFilter: true,
+						label: `tag:${tagToSearch?.name}`,
+						value: `tag:"${tagToSearch?.name}"`
+					}
+				],
+				CALENDAR_ROUTE
+			),
+		[]
+	);
 	return (
 		<>
 			<Row
@@ -70,6 +91,7 @@ const TagsRow: FC<{ event: EventType; hideIcon: boolean }> = ({
 										hasAvatar
 										avatarIcon="Tag"
 										maxWidth="300px"
+										onClick={(): void => triggerSearch(tag)}
 									/>
 								))}
 							</Text>
@@ -84,6 +106,7 @@ const TagsRow: FC<{ event: EventType; hideIcon: boolean }> = ({
 										hasAvatar
 										avatarIcon="Tag"
 										maxWidth="300px"
+										onClick={(): void => triggerSearch(tag)}
 									/>
 								))}
 							</Text>

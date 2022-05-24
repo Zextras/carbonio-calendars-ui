@@ -284,7 +284,8 @@ export const ActionsRetriever = (event, context, t, includeReplyActions) =>
 			? [
 					deletePermanently({ event, context, t }),
 					moveAppointment(event, context, t),
-					openInDisplayer(event, context, t)
+					openInDisplayer(event, context, t),
+					applyTag({ t, context, event })
 			  ]
 			: [
 					openInDisplayer(event, context, t),
@@ -304,7 +305,8 @@ export const ActionsRetriever = (event, context, t, includeReplyActions) =>
 		? [
 				deletePermanently({ event, context, t }),
 				moveAppointment(event, context, t),
-				openInDisplayer(event, context, t)
+				openInDisplayer(event, context, t),
+				applyTag({ t, context, event })
 		  ]
 		: [
 				openInDisplayer(event, context, t),
@@ -319,7 +321,8 @@ export const RecurrentActionRetriever = (event, context, t) =>
 		? [
 				deletePermanently({ event, context, t }),
 				moveAppointment(event, context, t),
-				openInDisplayer(event, context, t)
+				openInDisplayer(event, context, t),
+				applyTag({ t, context, event })
 		  ]
 		: [
 				{

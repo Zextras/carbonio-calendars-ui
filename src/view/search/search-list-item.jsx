@@ -17,10 +17,12 @@ import {
 	Padding,
 	Tooltip
 } from '@zextras/carbonio-design-system';
-import { find } from 'lodash';
+import { find, reduce, includes } from 'lodash';
 import styled from 'styled-components';
+import { useTags, ZIMBRA_STANDARD_COLORS } from '@zextras/carbonio-shell-ui';
 import { selectCalendars } from '../../store/selectors/calendars';
 import { useSearchActionsFn } from './hooks/use-search-actions-fn';
+import { useTagExist } from '../tags/tag-actions';
 
 const HoverContainer = styled(Container)`
 	&:hover {
@@ -77,6 +79,33 @@ const SearchListItem = ({ item, active }) => {
 
 	const { open } = useSearchActionsFn(item);
 
+	const tagsFromStore = useTags();
+	const tags = useMemo(
+		() =>
+			reduce(
+				tagsFromStore,
+				(acc, v) => {
+					if (includes(item?.resource?.tags, v.id))
+						acc.push({ ...v, color: ZIMBRA_STANDARD_COLORS[parseInt(v.color ?? '0', 10)].hex });
+					return acc;
+				},
+				[]
+			),
+		[item?.resource?.tags, tagsFromStore]
+	);
+
+	const tagIcon = useMemo(() => (tags?.length > 1 ? 'TagsMoreOutline' : 'Tag'), [tags]);
+	const tagIconColor = useMemo(() => (tags?.length === 1 ? tags?.[0]?.color : undefined), [tags]);
+
+	const isTagInStore = useTagExist(tags);
+	const showTagIcon = useMemo(
+		() =>
+			item.resource.tags &&
+			item.resource.tags.length !== 0 &&
+			item.resource.tags?.[0] !== '' &&
+			isTagInStore,
+		[isTagInStore, item.resource.tags]
+	);
 	return (
 		<HoverContainer
 			wrap="nowrap"
@@ -91,11 +120,11 @@ const SearchListItem = ({ item, active }) => {
 				mainAlignment="flex-start"
 				padding={{ all: 'small', right: 'large' }}
 			>
-				{item.resource?.organizer?.name && (
+				{(item.resource?.organizer?.name || item.resource?.organizer?.email) && (
 					<Avatar
 						selecting={false}
 						selected={false}
-						label={item.resource?.organizer?.name}
+						label={item.resource?.organizer?.name || item.resource?.organizer?.email}
 						onClick={() => null}
 						size="large"
 					/>
@@ -125,6 +154,11 @@ const SearchListItem = ({ item, active }) => {
 							mainAlignment="flex-end"
 							takeAvailableSpace={!iconsStyle}
 						>
+							{showTagIcon && (
+								<Padding left="small">
+									<Icon data-testid="TagIcon" icon={tagIcon} color={tagIconColor} />
+								</Padding>
+							)}
 							{hasAttachments && (
 								<>
 									<Padding left="small" />
