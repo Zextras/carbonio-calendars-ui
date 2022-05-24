@@ -584,6 +584,9 @@
     },
     "tooltip": {
         "add_attachments": "Add attachments",
+        "calendar_sharing_status": "Shared with {{count}} people",
+        "calendar_sharing_status_one": "Shared with 1 person",
+        "calendar_sharing_status_plural": "",
         "copy_ics_url": "Copy ICS url",
         "copy_outlook_url": "Copy Outlook url",
         "copy_vector_url": "Copy View url",
