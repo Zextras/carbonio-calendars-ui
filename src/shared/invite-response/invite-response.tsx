@@ -19,8 +19,12 @@ import styled from 'styled-components';
 import moment from 'moment';
 import 'moment-timezone';
 import { useTranslation } from 'react-i18next';
-import { getBridgedFunctions, getAction, Action } from '@zextras/carbonio-shell-ui';
+import { getBridgedFunctions, getAction, Action, replaceHistory } from '@zextras/carbonio-shell-ui';
 import { useDispatch } from 'react-redux';
+import { editAppointment } from '../../actions/action-functions';
+import { generateEditor } from '../../commons/editor-generator';
+import { normalizeEditorFromInvite } from '../../normalizations/normalize-editor';
+import { createAndApplyTag } from '../../view/tags/tag-actions';
 import InviteReplyPart from './parts/invite-reply-part';
 import ProposedTimeReply from './parts/proposed-time-reply';
 import { normalizeInvite } from '../../normalizations/normalize-invite';
@@ -93,6 +97,16 @@ const InviteResponse: FC<InviteResponse> = ({
 }): ReactElement => {
 	const dispatch = useDispatch();
 	const [t] = useTranslation();
+
+	const context = useMemo(
+		() => ({
+			replaceHistory,
+			dispatch,
+			isInstance: true
+		}),
+		[dispatch]
+	);
+
 	useEffect(() => {
 		if (!mailMsg.read) {
 			onLoadChange();
@@ -151,21 +165,14 @@ const InviteResponse: FC<InviteResponse> = ({
 		dispatch(getInvite({ inviteId })).then((res) => {
 			const normalizedInvite = { ...normalizeInvite(res.payload.m), ...res.payload.m };
 			const requiredEvent = inviteToEvent(normalizeInvite(res.payload.m));
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
-			getBridgedFunctions().addBoard(
-				`${CALENDAR_ROUTE}/edit?edit=${res?.payload?.m?.inv[0]?.comp[0]?.apptId}`,
-				{
-					app: CALENDAR_APP_ID,
-					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-					// @ts-ignore
-					event: requiredEvent,
-					invite: normalizedInvite,
-					proposeNewTime: true
-				}
-			);
+			const editorData = normalizeEditorFromInvite(normalizedInvite, {
+				...context,
+				calendar: requiredEvent.calendar
+			});
+			const { editor, callbacks } = generateEditor(requiredEvent.id, editorData, false);
+			getBridgedFunctions().addBoard(`${CALENDAR_ROUTE}/`, { ...editor, callbacks });
 		});
-	}, [dispatch, inviteId]);
+	}, [context, dispatch, inviteId]);
 	return (
 		<InviteContainer padding={{ all: 'extralarge' }}>
 			<Container padding={{ horizontal: 'small', vertical: 'large' }} width="100%">

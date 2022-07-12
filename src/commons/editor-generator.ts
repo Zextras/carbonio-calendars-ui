@@ -162,22 +162,24 @@ export const createCallbacks = (id: string): EditorCallbacks => {
 		dispatch(editEditorDisplayStatus({ id, freeBusy }));
 
 	const onCalendarChange = (calendar: EventResourceCalendar): void => {
-		const calResource = {
-			id: calendar.id,
-			name: calendar.name,
-			color: calendar.color
-		};
-		const organizer = {
-			email: calendar.owner ?? '',
-			name: '',
-			sentBy: account.name
-		};
-		const data = {
-			id,
-			calendar: calResource,
-			organizer: calendar.isShared ? organizer : undefined
-		};
-		dispatch(editEditorCalendar(data));
+		if (calendar) {
+			const calResource = {
+				id: calendar.id,
+				name: calendar.name,
+				color: calendar.color
+			};
+			const organizer = {
+				email: calendar.owner ?? '',
+				name: '',
+				sentBy: account.name
+			};
+			const data = {
+				id,
+				calendar: calResource,
+				organizer: calendar.isShared ? organizer : undefined
+			};
+			dispatch(editEditorCalendar(data));
+		}
 	};
 
 	const onPrivateChange = (
