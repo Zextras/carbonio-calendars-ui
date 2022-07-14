@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import { Dropdown, Icon, Padding, Text, Tooltip } from '@zextras/carbonio-design-system';
+import { Icon, Padding, Text, Tooltip } from '@zextras/carbonio-design-system';
 import { map } from 'lodash';
 import React, { ReactElement, useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -41,43 +41,6 @@ export const EditorAttachmentsButton = ({ editorId, callbacks }: EditorProps): R
 		}
 	}, []);
 
-	const attachmentsItems = useMemo(
-		() => [
-			{
-				id: 'localAttachment',
-				icon: 'MonitorOutline',
-				label: t('composer.attachment.local', 'Add from local'),
-				click: onFileClick,
-				customComponent: (
-					<>
-						<Icon icon="MonitorOutline" size="medium" />
-						<Padding horizontal="extrasmall" />
-						<Text>{t('composer.attachment.local', 'Add from local')}</Text>
-					</>
-				)
-			},
-			{
-				id: 'driveAttachment',
-				icon: 'DriveOutline',
-				label: t('composer.attachment.drive', 'Add from Drive'),
-				click: (): void => {
-					setOpenDD(false);
-				},
-				disabled: true
-			},
-			{
-				id: 'contactsModAttachment',
-				icon: 'ContactsModOutline',
-				label: t('composer.attachment.contactsMod', 'add contact card'),
-				click: (): void => {
-					setOpenDD(false);
-				},
-				disabled: true
-			}
-		],
-		[onFileClick, t]
-	);
-
 	const onChange = useCallback((): void => {
 		if (inputRef?.current?.files) {
 			addAttachments(editorId, parts, inputRef.current.files).then(({ payload, mp }) => {
@@ -97,13 +60,7 @@ export const EditorAttachmentsButton = ({ editorId, callbacks }: EditorProps): R
 	return (
 		<>
 			<Tooltip label={t('tooltip.add_attachments', 'Add attachments')}>
-				<Dropdown items={attachmentsItems} display="inline-block" width="fit" forceOpen={openDD}>
-					<ResizedIconCheckbox
-						onChange={(): null => null}
-						icon="AttachOutline"
-						onClick={(): void => setOpenDD(!openDD)}
-					/>
-				</Dropdown>
+				<ResizedIconCheckbox size="medium" icon="AttachOutline" onClick={onFileClick} />
 			</Tooltip>
 			<FileInput type="file" ref={inputRef} onChange={onChange} multiple />
 		</>

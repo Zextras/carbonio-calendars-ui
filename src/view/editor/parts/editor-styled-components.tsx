@@ -12,8 +12,7 @@ export const ResizedIconCheckbox = styled(IconCheckbox)`
 		svg {
 			height: 20px;
 			width: 20px;
-			fill: ${({ disabled, theme }): string =>
-				disabled ? theme.palette.secondary.disabled : theme.palette.currentColor.regular};
+			fill: ${({ theme }): string => theme.palette.currentColor.regular};
 		}
 	}
 `;
