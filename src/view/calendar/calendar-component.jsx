@@ -6,7 +6,7 @@
 import React, { useCallback, useMemo, useContext, useEffect, useState } from 'react';
 import moment from 'moment';
 import { ThemeContext } from 'styled-components';
-import { getBridgedFunctions, store, useUserSettings } from '@zextras/carbonio-shell-ui';
+import { addBoard, useUserSettings, getBridgedFunctions, store } from '@zextras/carbonio-shell-ui';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import { useDispatch, useSelector } from 'react-redux';
 import { isEqual, minBy } from 'lodash';
@@ -22,12 +22,12 @@ import { selectCheckedCalendarsMap, selectEnd, selectStart } from '../../store/s
 import { selectAppointmentsArray } from '../../store/selectors/appointments';
 import { setRange } from '../../store/slices/calendars-slice';
 import { normalizeCalendarEvents } from '../../normalizations/normalize-calendar-events';
+import { CALENDAR_ROUTE } from '../../constants';
 import { normalizeInvite } from '../../normalizations/normalize-invite';
 import { useCalendarDate, useCalendarView, useIsSummaryViewOpen } from '../../store/zustand/hooks';
 import { useAppStatusStore } from '../../store/zustand/store';
 import { searchAppointments } from '../../store/actions/search-appointments';
 import { generateEditor } from '../../commons/editor-generator';
-import { CALENDAR_ROUTE } from '../../constants';
 import { getInvite } from '../../store/actions/get-invite';
 import { normalizeEditorFromInvite } from '../../normalizations/normalize-editor';
 
@@ -181,9 +181,13 @@ export default function CalendarComponent() {
 					end: moment(e.end).valueOf()
 				});
 				const storeData = store.store.getState();
-				getBridgedFunctions().addBoard(`${CALENDAR_ROUTE}/`, {
-					...storeData.editor.editors[storeData.editor.activeId],
-					callbacks
+				addBoard({
+					url: `${CALENDAR_ROUTE}/`,
+					title: editor.title,
+					context: {
+						...storeData.editor.editors[storeData.editor.activeId],
+						callbacks
+					}
 				});
 			}
 			useAppStatusStore.setState((s) => ({ ...s, isSummaryViewOpen: false }));

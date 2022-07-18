@@ -5,20 +5,16 @@
  */
 import { useEffect, useState } from 'react';
 import { isEmpty, reduce, forEach, sortBy } from 'lodash';
-import { useRefresh, useNotify, store } from '@zextras/carbonio-shell-ui';
+import { useRefresh, useNotify } from '@zextras/carbonio-shell-ui';
 import { useDispatch, useSelector } from 'react-redux';
-import { combineReducers } from '@reduxjs/toolkit';
-import invitesSliceReducer, { handleModifiedInvites } from '../../store/slices/invites-slice';
-import calendarsSliceReducer, {
+import { handleModifiedInvites } from '../../store/slices/invites-slice';
+import {
 	handleCalendarsRefresh,
 	handleCreatedCalendars,
 	handleDeletedCalendars,
 	handleModifiedCalendars
 } from '../../store/slices/calendars-slice';
-import editorSliceReducer from '../../store/slices/editor-slice';
-import appointmentsSliceReducer, {
-	handleModifiedAppointments
-} from '../../store/slices/appointments-slice';
+import { handleModifiedAppointments } from '../../store/slices/appointments-slice';
 import { selectEnd, selectStart } from '../../store/selectors/calendars';
 import { searchAppointments } from '../../store/actions/search-appointments';
 
@@ -32,14 +28,6 @@ export const SyncDataHandler = () => {
 	const end = useSelector(selectEnd);
 	useEffect(() => {
 		if (!isEmpty(refresh) && !initialized) {
-			store.setReducer(
-				combineReducers({
-					appointments: appointmentsSliceReducer,
-					calendars: calendarsSliceReducer,
-					editor: editorSliceReducer,
-					invites: invitesSliceReducer
-				})
-			);
 			dispatch(handleCalendarsRefresh(refresh));
 			setInitialized(true);
 		}

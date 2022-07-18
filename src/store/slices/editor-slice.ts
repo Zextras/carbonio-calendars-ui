@@ -38,12 +38,13 @@ import {
 	openEditorReducer
 } from '../reducers/editor-reducers';
 import { newEditorReducer } from '../reducers/new-editor';
+import { Editor } from '../../types/editor';
 
 export const editorSlice = createSlice({
 	name: 'editor',
 	initialState: {
 		status: 'idle',
-		editors: {},
+		editors: {} as Record<string, Editor>,
 		editorPanel: undefined,
 		activeId: undefined,
 		searchActiveId: undefined

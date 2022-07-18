@@ -19,16 +19,17 @@ import styled from 'styled-components';
 import moment from 'moment';
 import 'moment-timezone';
 import { useTranslation } from 'react-i18next';
-import { getBridgedFunctions, getAction, Action } from '@zextras/carbonio-shell-ui';
+import { addBoard, getAction, Action } from '@zextras/carbonio-shell-ui';
 import { useDispatch } from 'react-redux';
 import InviteReplyPart from './parts/invite-reply-part';
 import ProposedTimeReply from './parts/proposed-time-reply';
 import { normalizeInvite } from '../../normalizations/normalize-invite';
 import { inviteToEvent } from '../../hooks/use-invite-to-event';
 import { getInvite } from '../../store/actions/get-invite';
-import { CALENDAR_APP_ID, CALENDAR_ROUTE } from '../../constants';
+import { CALENDAR_ROUTE } from '../../constants';
 import BodyMessageRenderer from '../../commons/body-message-renderer.jsx';
 import { useInvite } from '../../hooks/use-invite';
+import { StoreProvider } from '../../store/redux';
 
 /**
    @todo: momentary variables to dynamize
@@ -151,19 +152,14 @@ const InviteResponse: FC<InviteResponse> = ({
 		dispatch(getInvite({ inviteId })).then((res) => {
 			const normalizedInvite = { ...normalizeInvite(res.payload.m), ...res.payload.m };
 			const requiredEvent = inviteToEvent(normalizeInvite(res.payload.m));
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
-			getBridgedFunctions().addBoard(
-				`${CALENDAR_ROUTE}/edit?edit=${res?.payload?.m?.inv[0]?.comp[0]?.apptId}`,
-				{
-					app: CALENDAR_APP_ID,
-					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-					// @ts-ignore
+			addBoard({
+				url: `${CALENDAR_ROUTE}/edit?edit=${res?.payload?.m?.inv[0]?.comp[0]?.apptId}`,
+				context: {
 					event: requiredEvent,
 					invite: normalizedInvite,
 					proposeNewTime: true
 				}
-			);
+			});
 		});
 	}, [dispatch, inviteId]);
 	return (
@@ -511,4 +507,9 @@ const InviteResponse: FC<InviteResponse> = ({
 	);
 };
 
-export default InviteResponse;
+const InviteResponseComp: FC<InviteResponse> = (props) => (
+	<StoreProvider>
+		<InviteResponse {...props} />
+	</StoreProvider>
+);
+export default InviteResponseComp;

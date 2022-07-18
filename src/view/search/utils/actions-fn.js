@@ -4,7 +4,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 import { head, split } from 'lodash';
-import { CALENDAR_APP_ID, CALENDAR_ROUTE } from '../../../constants';
+import { addBoard } from '@zextras/carbonio-shell-ui';
+import { CALENDAR_ROUTE } from '../../../constants';
 import { EventActionsEnum } from '../../../types/enums/event-actions-enum';
 import { normalizeEditorFromInvite } from '../../../normalizations/normalize-editor';
 import { generateEditor } from '../../../commons/editor-generator';
@@ -34,9 +35,10 @@ export const editEventFn = (ev, invite, context) => {
 
 export const moveToBardFn = (ev, context) => {
 	if (ev) ev.stopPropagation();
-	context.addBoard(`${CALENDAR_ROUTE}/${EventActionsEnum.EDIT}/${context.apptId}/${context.ridZ}`, {
-		app: CALENDAR_APP_ID,
-		editor: context.editor
+	addBoard({
+		url: `${CALENDAR_ROUTE}/${EventActionsEnum.EDIT}/${context.apptId}/${context.ridZ}`,
+		title: context.editor.title,
+		context: { editor: context.editor }
 	});
 	const path = head(split(context?.pathname, `/${context?.action}`));
 	context?.history.push(path);

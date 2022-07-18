@@ -604,6 +604,7 @@
     "tooltip": {
         "add_attachments": "Add attachments",
         "calendar_sharing_status": "Shared with {{count}} people",
+        "calendar_sharing_status_one": "Shared with 1 person",
         "calendar_sharing_status_plural": "",
         "chat": "Equipment",
         "chat_room": "Virtual Room's link",

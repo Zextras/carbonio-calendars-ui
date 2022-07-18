@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 import { Container, Text } from '@zextras/carbonio-design-system';
-import { getBridgedFunctions } from '@zextras/carbonio-shell-ui';
+import { t } from '@zextras/carbonio-shell-ui';
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import ModalFooter from '../../commons/modal-footer';
@@ -56,7 +56,7 @@ export const DeletePermanently = ({
 						replace: true,
 						type: 'success',
 						hideButton: true,
-						label: getBridgedFunctions().t(
+						label: t(
 							'message.snackbar.appointment_permanently_deleted_succesfully',
 							'Permanent deletion completed successfully'
 						),
@@ -70,10 +70,7 @@ export const DeletePermanently = ({
 						replace: true,
 						type: 'error',
 						hideButton: true,
-						label: getBridgedFunctions().t(
-							'label.error_try_again',
-							'Something went wrong, please try again'
-						),
+						label: t('label.error_try_again', 'Something went wrong, please try again'),
 						autoHideTimeout: 3000
 					});
 				}
@@ -91,14 +88,14 @@ export const DeletePermanently = ({
 			<Container padding={{ top: 'large', bottom: 'large' }} crossAlignment="flex-start">
 				{event.resource.isRecurrent ? (
 					<Text overflow="break-word">
-						{getBridgedFunctions().t(
+						{t(
 							'message.modal.delete.sure_delete_appointment_all_instances_permanently',
 							'This will delete all occurences of this appointment and you will not be able to recover it again, continue?'
 						)}
 					</Text>
 				) : (
 					<Text overflow="break-word">
-						{getBridgedFunctions().t(
+						{t(
 							'message.modal.delete.sure_delete_appointment_permanently',
 							'By deleting permanently this appointment you will not be able to recover it anymore, continue?'
 						)}

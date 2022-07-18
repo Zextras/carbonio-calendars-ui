@@ -6,6 +6,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import produce from 'immer';
 import moment from 'moment';
+import { Calendar } from '../../types/store/calendars';
 import { folderAction } from '../actions/calendar-actions';
 import { createCalendar } from '../actions/create-calendar';
 import { getFolder } from '../actions/get-folder';
@@ -32,7 +33,7 @@ export const calendarsSlice = createSlice({
 	name: 'calendars',
 	initialState: {
 		status: 'idle',
-		calendars: {},
+		calendars: {} as Record<string, Calendar>,
 		start: moment().subtract('7', 'days').valueOf(),
 		end: moment().add('15', 'days').valueOf()
 	},

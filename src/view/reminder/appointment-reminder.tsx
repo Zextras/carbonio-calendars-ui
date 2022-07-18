@@ -4,9 +4,9 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 import { FOLDERS } from '@zextras/carbonio-shell-ui';
+import React, { ReactElement, useState, useEffect, useMemo } from 'react';
 import { filter, find, forEach, includes, isEmpty } from 'lodash';
 import moment from 'moment';
-import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getTimeToDisplayData } from '../../commons/utilities';
 import { normalizeReminderItem } from '../../normalizations/normalize-reminder';

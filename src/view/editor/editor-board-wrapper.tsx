@@ -3,13 +3,15 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import { useBoardConfig } from '@zextras/carbonio-shell-ui';
+import { useBoard } from '@zextras/carbonio-shell-ui';
 import React, { ReactElement } from 'react';
 import { EditorPanel } from './editor-panel';
 
 const BoardEditPanel = (): ReactElement | null => {
-	const board = useBoardConfig<any>();
+	const board = useBoard();
 
-	return board?.id ? <EditorPanel editorId={board?.id} callbacks={board.callbacks} /> : null;
+	return board?.id ? (
+		<EditorPanel editorId={board?.id} callbacks={board.context.callbacks} />
+	) : null;
 };
 export default BoardEditPanel;

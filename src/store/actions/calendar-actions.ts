@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { omitBy, isNil, isArray, map, forEach } from 'lodash';
+import { isArray, map, forEach } from 'lodash';
 import { soapFetch } from '@zextras/carbonio-shell-ui';
 
 export const folderAction = createAsyncThunk(
