@@ -97,13 +97,7 @@ export const ReminderModal = ({
 	);
 
 	return (
-		<CustomModal
-			open={openModal}
-			onClose={(): null => null}
-			maxHeight="90vh"
-			onClick={(e: MouseEvent): void => e.stopPropagation()}
-			onDoubleClick={(e: MouseEvent): void => e.stopPropagation()}
-		>
+		<CustomModal open={openModal} onClose={(): null => null} maxHeight="90vh">
 			{showNewTimeModal ? (
 				<SetNewAppointmentTimeModal toggleModal={toggleModal} setNewTime={setNewTime} />
 			) : (

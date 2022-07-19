@@ -13,7 +13,9 @@ import {
 	Text,
 	Checkbox,
 	Row,
-	Icon
+	Icon,
+	SelectItem,
+	SelectProps
 } from '@zextras/carbonio-design-system';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
@@ -43,14 +45,13 @@ const ColorContainer = styled(Container)`
 const TextUpperCase = styled(Text)`
 	text-transform: capitalize;
 `;
-type LabelFactoryProps = {
-	selected: [{ label: string; value: string }];
-	label: string;
-	open: boolean;
-	focus: boolean;
-};
 
-const LabelFactory = ({ selected, label, open, focus }: LabelFactoryProps): ReactElement => (
+const LabelFactory: SelectProps['LabelFactory'] = ({
+	selected,
+	label,
+	open,
+	focus
+}): ReactElement => (
 	<ColorContainer
 		orientation="horizontal"
 		width="fill"
@@ -72,10 +73,10 @@ const LabelFactory = ({ selected, label, open, focus }: LabelFactoryProps): Reac
 				<Text size="small" color={open || focus ? 'primary' : 'secondary'}>
 					{label}
 				</Text>
-				<TextUpperCase>{selected[0].label}</TextUpperCase>
+				<TextUpperCase>{selected?.[0].label}</TextUpperCase>
 			</Row>
 			<Padding right="small">
-				<Square color={ZIMBRA_STANDARD_COLORS[Number(selected[0].value)].color} />
+				<Square color={ZIMBRA_STANDARD_COLORS[Number(selected?.[0].value)].color} />
 			</Padding>
 		</Row>
 		<Icon
@@ -86,19 +87,13 @@ const LabelFactory = ({ selected, label, open, focus }: LabelFactoryProps): Reac
 		/>
 	</ColorContainer>
 );
-const getStatusItems = (): any =>
+const getStatusItems = (): SelectItem[] =>
 	ZIMBRA_STANDARD_COLORS.map((el, index) => ({
 		background: el.background,
-		label: el.label,
+		label: el.label ?? '',
 		value: index.toString(),
 		customComponent: (
-			<Container
-				width="100%"
-				takeAvailableSpace
-				mainAlignment="space-between"
-				orientation="horizontal"
-				height="fit"
-			>
+			<Container width="100%" mainAlignment="space-between" orientation="horizontal" height="fit">
 				<Padding left="small">
 					<TextUpperCase>{el.label}</TextUpperCase>
 				</Padding>
@@ -246,7 +241,10 @@ export const NewModal = ({
 			<Padding vertical="medium" />
 			<Select
 				label={'Select color'}
-				onChange={setSelectedColor}
+				onChange={(value): void => {
+					console.log('*** value', value);
+					// setSelectedColor
+				}}
 				items={colors}
 				defaultSelection={colors[0]}
 				LabelFactory={LabelFactory}

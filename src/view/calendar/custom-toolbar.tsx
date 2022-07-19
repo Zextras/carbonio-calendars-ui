@@ -3,13 +3,24 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import React, { ReactElement, useCallback } from 'react';
-import styled from 'styled-components';
+import React, { FC, ReactElement, useCallback } from 'react';
+import styled, { css, SimpleInterpolation } from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { Container, Button, IconButton } from '@zextras/carbonio-design-system';
+import {
+	Container,
+	Button,
+	IconButton,
+	ButtonProps,
+	pseudoClasses
+} from '@zextras/carbonio-design-system';
 import { useAppStatusStore } from '../../store/zustand/store';
 
-const MultiButton = styled(Button)`
+const ButtonWrapper = styled.div`
+	min-width: fit-content;
+	border: 1px solid;
+	${({ color = 'primary', theme }): SimpleInterpolation => css`
+		${pseudoClasses(theme, color, 'border-color')};
+	`};
 	&:last-child {
 		border-left: none;
 		border-radius: 0 2px 2px 0;
@@ -24,6 +35,12 @@ const MultiButton = styled(Button)`
 		border-left: none;
 	}
 `;
+
+const CustomButton: FC<ButtonProps> = (props: ButtonProps): ReactElement => (
+	<ButtonWrapper>
+		<Button {...props} style={{ border: 0 }} />
+	</ButtonWrapper>
+);
 
 export interface CustomToolbarProps {
 	label: string;
@@ -71,34 +88,39 @@ export const CustomToolbar = ({
 				padding={{ horizontal: 'small' }}
 			>
 				<Container width="fit" orientation="horizontal" mainAlignment="flex-start">
-					<Button label={t('label.today', 'today')} type="outlined" onClick={today} />
+					<Button
+						label={t('label.today', 'today')}
+						type="outlined"
+						onClick={today}
+						style={{ minWidth: 'fit-content' }}
+					/>
 				</Container>
-				<Container orientation="horizontal" width="100%">
+				<Container orientation="horizontal" mainAlignment="center">
 					<IconButton iconColor="primary" icon="ChevronLeft" onClick={prev} />
-					<Button type="ghost" label={label} onClick={(): null => null} minWidth="250px" />
+					<Button type="ghost" label={label} onClick={(): null => null} />
 					<IconButton iconColor="primary" icon="ChevronRight" onClick={next} />
 				</Container>
 				<Container width="fit" orientation="horizontal" mainAlignment="flex-end">
-					<MultiButton
-						backgroundColor={view === 'month' ? 'highlight' : null}
+					<CustomButton
+						backgroundColor={view === 'month' ? 'highlight' : undefined}
 						label={t('label.month', 'month')}
 						type="outlined"
 						onClick={month}
 					/>
-					<MultiButton
-						backgroundColor={view === 'week' ? 'highlight' : null}
+					<CustomButton
+						backgroundColor={view === 'week' ? 'highlight' : undefined}
 						label={t('label.week', 'week')}
 						type="outlined"
 						onClick={week}
 					/>
-					<MultiButton
-						backgroundColor={view === 'day' ? 'highlight' : null}
+					<CustomButton
+						backgroundColor={view === 'day' ? 'highlight' : undefined}
 						label={t('label.day', 'day')}
 						type="outlined"
 						onClick={day}
 					/>
-					<MultiButton
-						backgroundColor={view === 'work_week' ? 'highlight' : null}
+					<CustomButton
+						backgroundColor={view === 'work_week' ? 'highlight' : undefined}
 						label={t('label.work_week', 'work week')}
 						type="outlined"
 						onClick={workView}

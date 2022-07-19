@@ -41,7 +41,7 @@ export const CustomEvent = ({ event, title }: CustomEventProps): ReactElement =>
 	const createModal = useContext(ModalManagerContext);
 	const createSnackbar = useContext(SnackbarManagerContext);
 	const tags = useTags();
-	const anchorRef = useRef();
+	const anchorRef = useRef(null);
 	const [open, setOpen] = useState(false);
 	const { action } = useParams<{ action: string }>();
 	const invite = useSelector((state: Store) =>
@@ -119,8 +119,8 @@ export const CustomEvent = ({ event, title }: CustomEventProps): ReactElement =>
 					width="fill"
 					height="fill"
 					background="transparent"
-					mainAlignment="start"
-					crossAlignment="start"
+					mainAlignment="flex-start"
+					crossAlignment="flex-start"
 					onDoubleClick={showPanelView}
 				>
 					<Container

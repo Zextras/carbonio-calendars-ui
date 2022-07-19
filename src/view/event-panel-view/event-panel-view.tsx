@@ -21,7 +21,7 @@ import { useTranslation } from 'react-i18next';
 import { replaceHistory, useTags } from '@zextras/carbonio-shell-ui';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { map, some } from 'lodash';
+import { map, noop, some } from 'lodash';
 import { useInvite } from '../../hooks/use-invite';
 import { normalizeCalendarEvent } from '../../normalizations/normalize-calendar-events';
 import { Store } from '../../types/store/store';
@@ -41,37 +41,16 @@ import { AttachmentsBlock } from './attachments-part';
 
 const BodyContainer = styled(Container)`
 	overflow-y: auto;
-	// TODO: personalize scrollbar
-
-	//
-	// // ::-webkit-scrollbar {
-	// //   width: 12px;
-	// // }
-	//
-	// /* Track */
-	// // ::-webkit-scrollbar-track {
-	// // 		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	// // 		-webkit-border-radius: 10px;
-	// // 		border-radius: 10px;
-	// // }
-	//
-	// /* Handle */
-	// ::-webkit-scrollbar-thumb {
-	// 		-webkit-border-radius: 10px;
-	// 		border-radius: 10px;
-	// 		background: rgba(255,0,0,0.8);
-	// 		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-	// }
 `;
 
 const ActionButtons = ({ actions }: { actions: Array<any> }): ReactElement => {
-	const actionContainerRef = useRef();
-	const [hiddenActionsCount, recalculateHiddenActions] = useHiddenCount(actionContainerRef, true);
+	const actionContainerRef = useRef(null);
+	const [, recalculateHiddenActions] = useHiddenCount(actionContainerRef, true);
 
 	useEffect(() => {
 		recalculateHiddenActions();
 	}, [actions, recalculateHiddenActions]);
-	// todo: do we use it?
+
 	return (
 		<Row wrap="nowrap" height="100%" mainAlignment="flex-end" style={{ maxWidth: '160px' }}>
 			<Row
@@ -85,7 +64,7 @@ const ActionButtons = ({ actions }: { actions: Array<any> }): ReactElement => {
 						action.items ? (
 							<Dropdown items={action.items} key={`button ${action.id}`}>
 								<Row takeAvailableSpace>
-									<IconButton icon="TagsMoreOutline" />
+									<IconButton icon="TagsMoreOutline" onClick={noop} />
 								</Row>
 							</Dropdown>
 						) : (

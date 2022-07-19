@@ -3,6 +3,7 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
+import { TextProps } from '@zextras/carbonio-design-system';
 import { getBridgedFunctions, FOLDERS } from '@zextras/carbonio-shell-ui';
 import { TFunction } from 'i18next';
 import { isNil } from 'lodash';
@@ -246,8 +247,8 @@ export const getTimeToDisplayData = (
 	reminder: ReminderItem,
 	currentTime: DateType
 ): {
-	color: string;
-	size: string;
+	color: TextProps['color'];
+	size: TextProps['size'];
 	text: string;
 } => {
 	const { start, end, alarmData } = reminder;

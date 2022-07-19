@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import { Container, Padding, Select, Text, Icon, Button } from '@zextras/carbonio-design-system';
+import { Container, Padding, Select, Text } from '@zextras/carbonio-design-system';
 import { find } from 'lodash';
 import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { TFunction, useTranslation } from 'react-i18next';
@@ -43,13 +43,13 @@ const getStatusItems = (t: TFunction<'translation'>): Array<any> => [
 	{
 		label: t('label.free', 'Free'),
 		value: STATUS_VALUES.FREE,
-		color: '#ffffff',
+		color: '#ffffff', // TODO use enumerated color
 		customComponent: <StatusItemComponent label={t('label.free', 'Free')} color="#ffffff" />
 	},
 	{
 		label: t('label.tentative', 'tentative'),
 		value: STATUS_VALUES.TENTATIVE,
-		color: '#ffc107',
+		color: '#ffc107', // TODO use enumerated color
 		customComponent: (
 			<StatusItemComponent label={t('label.tentative', 'tentative')} color="#ffc107" />
 		)
@@ -57,13 +57,13 @@ const getStatusItems = (t: TFunction<'translation'>): Array<any> => [
 	{
 		label: t('label.busy', 'Busy'),
 		value: STATUS_VALUES.BUSY,
-		color: '#d5e3f6',
+		color: '#d5e3f6', // TODO use enumerated color
 		customComponent: <StatusItemComponent label={t('label.busy', 'Busy')} color="#d5e3f6" />
 	},
 	{
 		label: t('label.out_of_office', 'Out of office'),
 		value: STATUS_VALUES.OUT_OF_OFFICE,
-		color: '#d5e3f6',
+		color: '#d5e3f6', // TODO use enumerated color
 		customComponent: (
 			<StatusItemComponent label={t('label.out_of_office', 'Out of office')} color="#2b73d2" />
 		)
@@ -99,15 +99,14 @@ export const EditorFreeBusySelector2 = ({
 			items={statusItems}
 			selection={selectedItem}
 			disablePortal
-			LabelFactory={LabelFactory}
+			// LabelFactory={LabelFactory}
 		/>
 	);
 };
 
 export const EditorFreeBusySelector = ({
 	editorId,
-	callbacks,
-	disabled = false
+	callbacks
 }: EditorFreeBusyProps): ReactElement | null => {
 	const [t] = useTranslation();
 	const statusItems = useMemo(() => getStatusItems(t), [t]);
@@ -139,7 +138,7 @@ export const EditorFreeBusySelector = ({
 		<Select
 			items={statusItems}
 			background="gray5"
-			label="Select an item"
+			label={t('label.display', 'Display')}
 			onChange={onChange}
 			selection={selected}
 			LabelFactory={LabelFactory}

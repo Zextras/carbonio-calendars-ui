@@ -21,7 +21,7 @@ import { ROOM_DIVIDER } from '../../commons/body-message-renderer';
 import TagsRow from './tags-row';
 
 type EventSummaryProps = {
-	anchorRef: React.RefObject<HTMLInputElement | undefined>;
+	anchorRef: React.RefObject<HTMLElement>;
 	open: boolean;
 	event: EventType;
 	onClose: () => void;

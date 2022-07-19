@@ -4,8 +4,8 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 import React, { Suspense, lazy, useEffect, useMemo, ReactElement } from 'react';
-import { Button, Container } from '@zextras/carbonio-design-system';
-import { isEmpty } from 'lodash';
+import { ButtonOld as Button, Container } from '@zextras/carbonio-design-system';
+import { isEmpty, noop } from 'lodash';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
@@ -47,7 +47,7 @@ export default function CalendarView(): ReactElement {
 			<Suspense
 				fallback={
 					<Container height="50%" mainAlignment="center" crossAlignment="center">
-						<Button loading disabled label="" type="ghost" />
+						<Button loading disabled label="" type="ghost" onClick={noop} />
 					</Container>
 				}
 			>

@@ -188,15 +188,10 @@ export const ShareCalendarModal: FC<ShareCalendarModalProps> = ({
 					<ChipInput
 						placeholder={t('share.placeholder.recipients_address', 'Recipients e-mail addresses')}
 						background="gray4"
-						disablePortal
 						onChange={(ev: any): any => {
 							// @ts-ignore
 							setContacts(map(ev, (contact) => ({ email: contact.address })));
 						}}
-						valueKey="address"
-						getChipLabel={(participant: any): string =>
-							participant.fullName ?? participant.name ?? participant.address
-						}
 					/>
 				)}
 			</Container>
@@ -259,7 +254,6 @@ export const ShareCalendarModal: FC<ShareCalendarModalProps> = ({
 					onChange={(ev: any): void => {
 						setStandardMessage(ev.target.value);
 					}}
-					background="gray5"
 					disabled={!sendNotification}
 				/>
 			</Container>

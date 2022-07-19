@@ -53,7 +53,9 @@ export const TitleRow = ({ event }: { event: EventType }): ReactElement => {
 				{event.resource.class !== 'PRI' && (
 					<>
 						<Row padding={{ right: 'small' }}>
-							{event?.resource?.tags?.length > 0 && <Icon color={tagIconColor} icon={tagIcon} />}
+							{event?.resource?.tags?.length > 0 && (
+								<Icon color={tagIconColor ? `${tagIconColor}` : '0'} icon={tagIcon} />
+							)}
 						</Row>
 						<Row>{event?.resource?.flags?.includes('a') && <Icon icon="AttachOutline" />}</Row>
 						{!event.resource.calendar?.owner && !event?.resource?.iAmOrganizer && (

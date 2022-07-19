@@ -9,7 +9,7 @@ import {
 	SnackbarManagerContext,
 	Container,
 	Padding,
-	Button,
+	ButtonOld as Button,
 	Divider,
 	Row,
 	Checkbox

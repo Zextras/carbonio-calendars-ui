@@ -12,7 +12,6 @@ import { modifyAppointment } from '../store/actions/new-modify-appointment';
 import {
 	closeEditor,
 	createNewEditor,
-	editAppointmentData,
 	editEditorAllDay,
 	editEditorAttachments,
 	editEditorAttendees,

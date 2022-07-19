@@ -5,6 +5,7 @@
  */
 import {
 	Container,
+	ContainerProps,
 	Divider,
 	Icon,
 	IconButton,
@@ -34,7 +35,7 @@ const BackgroundContainer = styled.div`
 	border-radius: 0;
 `;
 
-export const AppointmentCardContainer = styled(Container)`
+export const AppointmentCardContainer = styled(Container)<ContainerProps & { expanded?: boolean }>`
 	z-index: 10;
 	position: absolute;
 	top: ${({ expanded }): string => (expanded ? '16px' : '16px')};

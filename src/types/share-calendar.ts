@@ -32,6 +32,6 @@ export type ShareCalendarUrlProps = {
 export type UrlColumnProps = {
 	label: string;
 	tooltip: string;
-	onUrlCopied: (label: string, type: string) => void;
+	onUrlCopied: (label: string, type: string) => () => void;
 	type: string;
 };

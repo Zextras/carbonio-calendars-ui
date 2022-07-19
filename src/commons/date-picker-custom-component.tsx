@@ -4,11 +4,11 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 import React, { FC, ReactElement, useCallback, useEffect, useState } from 'react';
-import { Padding, Row, Icon, Input } from '@zextras/carbonio-design-system';
+import { Padding, Row, Input, IconButton } from '@zextras/carbonio-design-system';
 import styled from 'styled-components';
 
 type CustomComponentProps = {
-	value: unknown;
+	value: Date;
 	onClick: () => void;
 	onChange: (a: string) => unknown;
 	label: string;
@@ -34,7 +34,7 @@ const DatePickerCustomComponent: FC<CustomComponentProps> = ({
 	label,
 	icon = 'CalendarOutline'
 }): ReactElement => {
-	const [input, setInput] = useState(value);
+	const [input, setInput] = useState(value.toString());
 	const [timer, setTimer] = useState<null | ReturnType<typeof setTimeout>>(null);
 
 	const throttledOnChange = useCallback(
@@ -50,7 +50,7 @@ const DatePickerCustomComponent: FC<CustomComponentProps> = ({
 	);
 
 	useEffect(() => {
-		setInput(value);
+		setInput(value.toString());
 	}, [value]);
 
 	return (
@@ -69,7 +69,7 @@ const DatePickerCustomComponent: FC<CustomComponentProps> = ({
 			</Row>
 			<Row>
 				<Padding horizontal="small">
-					<Icon
+					<IconButton
 						icon={icon}
 						size="large"
 						onClick={onClick}

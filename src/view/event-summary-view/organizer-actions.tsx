@@ -14,7 +14,7 @@ import {
 	Row
 } from '@zextras/carbonio-design-system';
 import { FOLDERS, replaceHistory, useTags } from '@zextras/carbonio-shell-ui';
-import { map } from 'lodash';
+import { map, noop } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { editAppointment } from '../../actions/action-functions';
 import {
@@ -87,14 +87,14 @@ const OrganizerActions: FC<{ event: EventType; invite: Invite }> = ({
 					type="outlined"
 					disabled={!event.permission}
 					label={t('label.move', 'move')}
-					onClick={(): void => console.warn('not implemented yet')}
+					onClick={noop}
 				/>
 			) : (
 				<Button
 					disabled={!event.haveWriteAccess}
 					type="outlined"
 					label={t('label.edit', 'edit')}
-					onClick={(ev: Event): void => editAppointment(ev, event, invite, context)}
+					onClick={(ev): void => editAppointment(ev, event, invite, context)}
 				/>
 			)}
 
@@ -105,6 +105,7 @@ const OrganizerActions: FC<{ event: EventType; invite: Invite }> = ({
 							type="outlined"
 							label={t('label.other_actions', 'Other actions')}
 							icon="ArrowIosDownwardOutline"
+							onClick={noop}
 						/>
 					</Row>
 				</Dropdown>

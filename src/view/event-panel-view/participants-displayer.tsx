@@ -111,7 +111,7 @@ export const ParticipantsDisplayer = ({
 			mainAlignment="flex-start"
 			crossAlignment="flex-start"
 			width="fill"
-			heigh="fit"
+			height="fit"
 			padding={{ top: 'large' }}
 		>
 			{participants?.AC?.length > 0 && (

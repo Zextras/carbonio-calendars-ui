@@ -16,13 +16,13 @@ import React, { ReactElement, useEffect, useRef } from 'react';
 import { map, some } from 'lodash';
 
 const ActionButtons = ({ actions }: { actions: any[] }): JSX.Element => {
-	const actionContainerRef = useRef();
-	const [hiddenActionsCount, recalculateHiddenActions] = useHiddenCount(actionContainerRef, true);
+	const actionContainerRef = useRef(null);
+	const [, recalculateHiddenActions] = useHiddenCount(actionContainerRef, true);
 
 	useEffect(() => {
 		recalculateHiddenActions();
 	}, [actions, recalculateHiddenActions]);
-	// todo: do we use it?
+
 	return (
 		<Row wrap="nowrap" height="100%" mainAlignment="flex-end" style={{ maxWidth: '160px' }}>
 			<Row

@@ -67,7 +67,7 @@ export const EditorAttendees = ({
 					padding={{ all: 'none' }}
 				>
 					<Container background="gray5" style={{ overflow: 'hidden' }}>
-						{integrationAvailable ? (
+						{!integrationAvailable ? (
 							<ContactInput
 								// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 								// @ts-ignore
@@ -80,9 +80,10 @@ export const EditorAttendees = ({
 							<ChipInput
 								placeholder={t('label.attendee_plural', 'Attendees')}
 								background="gray5"
-								onChange={onAttendeesChange}
+								onChange={(items: any): void => {
+									onAttendeesChange(items);
+								}}
 								defaultValue={attendees}
-								valueKey="address"
 								hasError={hasError}
 								errorLabel=""
 								disabled={disabled}
@@ -121,9 +122,10 @@ export const EditorAttendees = ({
 							<ChipInput
 								placeholder={t('label.optional_plural', 'Optionals')}
 								background="gray5"
-								onChange={onOptionalAttendeesChange}
+								onChange={(items: any): void => {
+									onOptionalAttendeesChange(items);
+								}}
 								defaultValue={optionalAttendees}
-								valueKey="address"
 								hasError={optionalHasError}
 								errorLabel=""
 								disabled={disabled}

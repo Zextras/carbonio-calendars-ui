@@ -8,7 +8,7 @@ import {
 	Container,
 	Padding,
 	Text,
-	Button,
+	ButtonOld as Button,
 	Row,
 	Divider,
 	Checkbox

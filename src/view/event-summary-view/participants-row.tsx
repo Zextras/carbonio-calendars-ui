@@ -13,7 +13,7 @@ import { Invite, InviteParticipant, InviteParticipants } from '../../types/store
 
 type ParticipantProps = { participant: InviteParticipants; event: EventType };
 
-const DisplayParticipantsVisitor = ({ participant, event }: ParticipantProps): ReactElement => {
+const DisplayParticipantsVisitor = ({ participant }: ParticipantProps): ReactElement => {
 	const [t] = useTranslation();
 	const users = reduce(participant, (acc, v) => [...acc, ...v], [] as Array<InviteParticipant>);
 	return (
@@ -22,7 +22,6 @@ const DisplayParticipantsVisitor = ({ participant, event }: ParticipantProps): R
 			mainAlignment="flex-start"
 			crossAlignment="flex-start"
 			wrap="wrap"
-			takeAvailableSpace
 			width="fill"
 			padding={{ horizontal: 'medium', bottom: 'extrasmall' }}
 		>
@@ -124,7 +123,6 @@ const DisplayedParticipant = ({
 		<Container
 			mainAlignment="flex-start"
 			crossAlignment="flex-start"
-			takeAvailableSpace
 			padding={{ bottom: 'extrasmall' }}
 		>
 			<Text overflow="ellipsis" size="small" color="secondary">
@@ -159,13 +157,7 @@ const Component = ({
 }: ComponentProps): ReactElement | null => {
 	const displayedParticipants = useMemo(
 		() => (
-			<Container
-				orientation="horizontal"
-				crossAlignment="flex-start"
-				wrap="wrap"
-				takeAvailableSpace
-				width="fill"
-			>
+			<Container orientation="horizontal" crossAlignment="flex-start" wrap="wrap" width="fill">
 				{participants.map((participant) => (
 					<DisplayedParticipant
 						participant={participant}
@@ -237,7 +229,6 @@ const ParticipantsDisplayerSmall = ({
 			crossAlignment="flex-start"
 			width="fill"
 			padding={{ horizontal: 'medium' }}
-			takeAvailableSpace
 		>
 			{event?.resource?.iAmOrganizer && !event?.resource?.calendar?.owner ? (
 				<DisplayParticipantsVisitor participant={participants} event={event} />

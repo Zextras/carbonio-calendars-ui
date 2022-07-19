@@ -7,7 +7,6 @@ import { Container, Icon, Padding, Row, Text, Tooltip } from '@zextras/carbonio-
 import React, { ReactElement, useMemo } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { isNil, omitBy } from 'lodash';
 import { EventType } from '../../types/event';

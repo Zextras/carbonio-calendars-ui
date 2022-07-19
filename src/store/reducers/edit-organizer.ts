@@ -3,8 +3,7 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import { isNil, omit, reject } from 'lodash';
-import { ZimbraColorType } from '../../commons/zimbra-standard-colors';
+import { isNil, omit } from 'lodash';
 import { Editor, IdentityItem, Room } from '../../types/editor';
 import { EventResourceCalendar } from '../../types/event';
 import { Attendee, InviteClass, InviteFreeBusy } from '../../types/store/invite';

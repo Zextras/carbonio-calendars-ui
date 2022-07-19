@@ -7,7 +7,6 @@ import { isNil, omitBy } from 'lodash';
 import { moveAppointmentToTrash } from '../../../store/actions/move-appointment-to-trash';
 import { sendInviteResponse } from '../../../store/actions/send-invite-response';
 import { EventType } from '../../../types/event';
-import { Appointment } from '../../../types/store/appointments';
 import { Invite } from '../../../types/store/invite';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

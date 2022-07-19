@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 import React, { ReactElement } from 'react';
-import { Container, Icon, Text, Padding } from '@zextras/carbonio-design-system';
+import { Container, Icon, Text, Padding, ContainerProps } from '@zextras/carbonio-design-system';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
@@ -53,9 +53,9 @@ const DetailText = styled(Text)`
 `;
 
 type DropzoneProps = {
-	onDragOver: (event: DragEvent) => void;
-	onDrop: (event: DragEvent) => void;
-	onDragLeave: (event: DragEvent) => void;
+	onDragOver?: ContainerProps['onDragOver'];
+	onDrop?: ContainerProps['onDrop'];
+	onDragLeave?: ContainerProps['onDragLeave'];
 };
 
 export const DropZoneAttachment = ({
@@ -89,7 +89,7 @@ export const DropZoneAttachment = ({
 										</Padding>
 									</DropBoxIconGroup>
 									<Container mainAlignment="center" height="auto">
-										<Text size="reguler" color="primary" weight="bold">
+										<Text color="primary" weight="bold">
 											{t('composer.attachment.draganddrop.title', 'Drag&Drop Mode')}
 										</Text>
 										<Padding top="small" />

@@ -5,7 +5,7 @@
  */
 import moment from 'moment';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types,@typescript-eslint/explicit-function-return-type
-export const handleModifyAppointmentPending = (state: any, { meta, payload }: any) => {
+export const handleModifyAppointmentPending = (state: any, { meta }: any) => {
 	// eslint-disable-next-line no-param-reassign
 	meta.prevApntState = state.appointments;
 	state.appointments[meta?.arg?.appt?.resource?.id].inst[0].s = Number(

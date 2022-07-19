@@ -42,9 +42,7 @@ const SearchResultsHeader = ({ searchString, resultsCount }: SearchResultsHeader
 				<Text size="large" weight="bold">
 					{searchString && searchString.map((i) => i.label).join(' ')}
 				</Text>
-				<Text width="fill" mainAlignment="right" size="large">
-					{resultsCount}
-				</Text>
+				<Text size="large">{resultsCount}</Text>
 			</Container>
 		</Container>
 	);

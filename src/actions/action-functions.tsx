@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { DeletePermanently } from '../commons/delete-permanently';
 import { generateEditor } from '../commons/editor-generator';
 import { normalizeEditorFromInvite } from '../normalizations/normalize-editor';
@@ -23,7 +23,7 @@ export const openAppointment = (ev: Event, event: EventType, context: ActionsCon
 };
 
 export const editAppointment = (
-	ev: Event,
+	ev: SyntheticEvent<HTMLElement, Event> | KeyboardEvent,
 	event: EventType,
 	invite: Invite,
 	context: ActionsContext

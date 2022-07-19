@@ -13,6 +13,7 @@ import {
 	Text,
 	Tooltip
 } from '@zextras/carbonio-design-system';
+import { noop } from 'lodash';
 import moment from 'moment';
 import React, { FC, ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -89,7 +90,6 @@ export const AppointmentReminderItem: FC<ApptReminderCardProps> = ({
 		<Container
 			padding={{ vertical: 'small' }}
 			mainAlignment="space-between"
-			takeAvailableSpace
 			crossAlignment="center"
 			orientation="horizontal"
 		>
@@ -147,7 +147,7 @@ export const AppointmentReminderItem: FC<ApptReminderCardProps> = ({
 					) : (
 						<Tooltip placement="top" label={t('label.snooze', 'Snooze')}>
 							<Dropdown items={reminderItems} placement="bottom-end">
-								<IconButton icon="Flip2Outline" size="large" />
+								<IconButton icon="Flip2Outline" size="large" onClick={noop} />
 							</Dropdown>
 						</Tooltip>
 					)}

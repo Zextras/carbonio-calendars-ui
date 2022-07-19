@@ -6,7 +6,13 @@
 import { FOLDERS } from '@zextras/carbonio-shell-ui';
 import { TFunction } from 'i18next';
 import React, { useState, useMemo, useCallback, ReactElement } from 'react';
-import { Input, Container, Text } from '@zextras/carbonio-design-system';
+import {
+	Input,
+	Container,
+	Text,
+	AccordionItemProps,
+	AccordionItemType
+} from '@zextras/carbonio-design-system';
 import { filter, startsWith, reduce, isEmpty } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { ModalHeader } from '../../commons/modal-header';
@@ -117,16 +123,17 @@ export const MoveModal = ({
 			),
 		[folderDestination.id, input.length, folders]
 	);
+
 	const nestedData = useMemo(
 		() => [
 			{
 				id: FOLDERS.USER_ROOT,
 				label: getFolderTranslatedName(t, FOLDERS.USER_ROOT, 'Root'),
-				level: '0',
+				level: 0,
 				open: true,
 				items: nestFilteredFolders(folders, '1', filterFromInput),
 				background: folderDestination.id === '1' ? 'highlight' : undefined
-			}
+			} as AccordionItemType
 		],
 		[t, filterFromInput, folderDestination.id, folders, nestFilteredFolders]
 	);

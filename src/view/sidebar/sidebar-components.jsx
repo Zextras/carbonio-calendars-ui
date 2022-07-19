@@ -6,7 +6,7 @@
 import React, { useCallback, useContext, useMemo } from 'react';
 import {
 	AccordionItem,
-	Button,
+	ButtonOld as Button,
 	Container,
 	Dropdown,
 	Icon,

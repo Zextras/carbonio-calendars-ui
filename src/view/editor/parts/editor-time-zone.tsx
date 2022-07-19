@@ -37,6 +37,16 @@ export const EditorTimezone = ({ editorId, callbacks }: EditorProps): ReactEleme
 	}, [timeZonesOptions, timezone]);
 
 	return value && zimbraPrefUseTimeZoneListInCalendar === 'TRUE' ? (
-		<Select items={timeZonesOptions} onChange={onTimeZoneChange} selection={value} />
+		<Select
+			items={timeZonesOptions}
+			multiple={false}
+			onChange={(item): void => {
+				// Typescript is pointing to the wrong overload
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-ignore
+				onTimeZoneChange(item?.value);
+			}}
+			selection={value}
+		/>
 	) : null;
 };

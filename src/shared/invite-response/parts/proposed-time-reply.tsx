@@ -9,7 +9,7 @@ import {
 	SnackbarManagerContext,
 	Container,
 	Padding,
-	Button,
+	ButtonOld as Button,
 	Divider
 } from '@zextras/carbonio-design-system';
 import { useIntegratedFunction, useUserAccounts } from '@zextras/carbonio-shell-ui';
@@ -108,7 +108,7 @@ const ProposedTimeReply: FC<ProposedTimeReply> = ({
 				orientation="horizontal"
 				crossAlignment="flex-start"
 				mainAlignment="flex-start"
-				weight="fill"
+				width="fill"
 				height="fit"
 				padding={{ top: 'medium' }}
 			>

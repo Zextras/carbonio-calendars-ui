@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import { Container, Padding, Select, Text } from '@zextras/carbonio-design-system';
+import { Container, Padding, Select, SelectItem, Text } from '@zextras/carbonio-design-system';
 import { FOLDERS } from '@zextras/carbonio-shell-ui';
 import React, { ReactElement, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -47,25 +47,33 @@ export const CalendarSelector = ({
 	);
 	const calendarItems = useMemo(
 		() =>
-			map(requiredCalendars, (cal) => ({
-				label: cal.name,
-				value: cal.id,
-				color: cal.color.color || 0,
-				customComponent: (
-					<Container width="fit" mainAlignment="flex-start" orientation="horizontal">
-						<Square color={cal.color.color || 'gray6'} />
-						<Padding left="small">
-							<Text>{cal.name}</Text>
-						</Padding>
-					</Container>
-				)
-			})),
+			map(
+				requiredCalendars,
+				(cal) =>
+					({
+						label: cal.name,
+						value: cal.id,
+						color: cal.color.color || 0,
+						customComponent: (
+							<Container width="fit" mainAlignment="flex-start" orientation="horizontal">
+								<Square color={cal.color.color || 'gray6'} />
+								<Padding left="small">
+									<Text>{cal.name}</Text>
+								</Padding>
+							</Container>
+						)
+					} as SelectItem)
+			),
 		[requiredCalendars]
 	);
-	const defaultCalendarSelection = useMemo(
-		() => find(calendarItems, ['value', calendarId]) ?? requiredCalendars[0],
-		[calendarItems, requiredCalendars, calendarId]
-	);
+	const defaultCalendarSelection = useMemo(() => {
+		const defaultCalendar = {
+			value: requiredCalendars[0].id,
+			label: requiredCalendars[0].name,
+			color: requiredCalendars[0].color
+		};
+		return find(calendarItems, ['value', calendarId]) ?? defaultCalendar;
+	}, [calendarItems, requiredCalendars, calendarId]);
 
 	const getSelectedCalendar = useCallback(
 		(id) => find(calendars, ['id', id]) ?? requiredCalendars[0],

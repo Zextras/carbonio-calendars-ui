@@ -95,12 +95,6 @@ export const createAppointment = createAsyncThunk(
 				ptst: 'NE'
 			}))
 		);
-		const e = draft
-			? []
-			: at.map((attendee) => ({
-					a: attendee.a,
-					t: 't'
-			  }));
 
 		const resp = await soapFetch('CreateAppointment', {
 			echo: '1',

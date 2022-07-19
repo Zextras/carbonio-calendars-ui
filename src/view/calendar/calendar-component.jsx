@@ -175,7 +175,7 @@ export default function CalendarComponent() {
 	const handleSelect = useCallback(
 		(e) => {
 			if (!summaryViewOpen) {
-				const { editor, callbacks } = generateEditor('new', {
+				const { callbacks } = generateEditor('new', {
 					title: t('label.new_appointment', 'New Appointment'),
 					start: moment(e.start).valueOf(),
 					end: moment(e.end).valueOf()

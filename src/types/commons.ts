@@ -3,11 +3,13 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
+import { ButtonProps, ContainerProps, TooltipProps } from '@zextras/carbonio-design-system';
+
 export type ModalFooterProps = {
-	mainAlignment?: string | undefined;
-	crossAlignment?: string | undefined;
+	mainAlignment?: ContainerProps['mainAlignment'] | undefined;
+	crossAlignment?: ContainerProps['crossAlignment'] | undefined;
 	padding?: Record<string, string> | undefined;
-	onConfirm: (a: string) => void;
+	onConfirm: () => void;
 	secondaryAction?: () => void | undefined;
 	label: string;
 	secondaryLabel?: string | undefined;
@@ -17,14 +19,14 @@ export type ModalFooterProps = {
 	secondarybackground?: string | undefined;
 	color?: string | undefined;
 	secondaryColor?: string | undefined;
-	size?: string | undefined;
-	primaryBtnType?: string | undefined;
-	secondaryBtnType?: string | undefined;
+	width?: ButtonProps['width'];
+	primaryBtnType?: ButtonProps['type'];
+	secondaryBtnType?: ButtonProps['type'];
 	showDivider?: boolean | undefined;
 	primaryTooltip?:
 		| {
 				label: string;
-				placement: string;
+				placement: TooltipProps['placement'];
 				maxWidth: string;
 		  }
 		| undefined;

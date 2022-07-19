@@ -5,12 +5,11 @@
  */
 import { FOLDERS } from '@zextras/carbonio-shell-ui';
 import { TFunction } from 'i18next';
+import { SyntheticEvent } from 'react';
 import { ActionsContext } from '../types/actions';
 import { EventActionsEnum } from '../types/enums/event-actions-enum';
 import { EventType } from '../types/event';
-import { Appointment } from '../types/store/appointments';
 import { Invite } from '../types/store/invite';
-import { applyTag } from '../view/tags/tag-actions';
 import {
 	acceptAsTentative,
 	acceptInvitation,
@@ -124,5 +123,5 @@ export const editAppointmentItem = (
 	icon: 'Edit2Outline',
 	label: t('label.edit', 'Edit'),
 	disabled: !invite.isOrganizer || !context?.haveWriteAccess,
-	click: (ev: Event): void => editAppointment(ev, event, invite, context)
+	click: (ev: SyntheticEvent<HTMLElement>): void => editAppointment(ev, event, invite, context)
 });

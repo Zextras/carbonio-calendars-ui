@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 import { map } from 'lodash';
-import React, { ReactElement, ReactNode, useCallback, useMemo, useState } from 'react';
+import React, { DragEvent, ReactElement, ReactNode, useCallback, useMemo, useState } from 'react';
 import { Container } from '@zextras/carbonio-design-system';
 import { EditorCallbacks } from '../../../types/editor';
 import { addAttachments } from './editor-attachments';

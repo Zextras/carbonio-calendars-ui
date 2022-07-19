@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import { Select, Icon, Row, Container, Text } from '@zextras/carbonio-design-system';
+import { Select, Icon, Row, Container, Text, SelectProps } from '@zextras/carbonio-design-system';
 import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { TFunction, useTranslation } from 'react-i18next';
 import { find } from 'lodash';
@@ -161,14 +161,7 @@ export const TextUpperCase = styled(Text)`
 	text-transform: capitalize;
 `;
 
-type LabelFactoryProps = {
-	selected: [{ label: string; value: string }];
-	label: string;
-	open: boolean;
-	focus: boolean;
-};
-
-const LabelFactory = ({ selected, label, open, focus }: LabelFactoryProps): ReactElement => (
+const LabelFactory: SelectProps['LabelFactory'] = ({ selected, label, open, focus }) => (
 	<ColorContainer
 		orientation="horizontal"
 		width="fill"
@@ -243,7 +236,7 @@ export const EditorReminder = ({ editorId, callbacks }: EditorProps): ReactEleme
 			items={reminderItems}
 			disabled={false}
 			label={t('label.reminder', 'Reminder')}
-			maxDropdownHeight="200px"
+			dropdownMaxHeight="200px"
 			onChange={onChange}
 			selection={selected}
 			disablePortal

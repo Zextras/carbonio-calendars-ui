@@ -75,7 +75,7 @@ export const generateSoapMessageFromInvite = (invite: Invite): any => {
 
 export const createApptException = createAsyncThunk(
 	'appointment/create-appointment-exception',
-	async ({ invite, editor, account }: any): Promise<unknown> => {
+	async ({ invite, editor }: any): Promise<unknown> => {
 		const normalizeInviteToSoap = invite
 			? generateSoapMessageFromInvite(invite)
 			: generateSoapMessageFromEditor(editor);

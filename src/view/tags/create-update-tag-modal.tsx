@@ -40,7 +40,6 @@ const CreateUpdateTagModal: FC<ComponentProps> = ({
 	const [t] = useTranslation();
 	const [name, setName] = useState(tag?.name || '');
 	const [color, setColor] = useState(tag?.color || 0);
-	const dispatch = useDispatch();
 	const title = useMemo(
 		() =>
 			editMode
@@ -68,7 +67,7 @@ const CreateUpdateTagModal: FC<ComponentProps> = ({
 				inviteId,
 				tagName
 			})
-				.then((res: any) => {
+				.then(() => {
 					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 					// @ts-ignore
 					createSnackbar({
@@ -83,7 +82,7 @@ const CreateUpdateTagModal: FC<ComponentProps> = ({
 						autoHideTimeout: 3000
 					});
 				})
-				.catch((error) => {
+				.catch(() => {
 					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 					// @ts-ignore
 					createSnackbar({

@@ -3,7 +3,14 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-import { Container, Select, Icon, Row, Text } from '@zextras/carbonio-design-system';
+import {
+	Container,
+	Select,
+	Icon,
+	Row,
+	Text,
+	LabelFactoryProps
+} from '@zextras/carbonio-design-system';
 import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
@@ -20,13 +27,6 @@ export const ColorContainer = styled(Container)`
 export const TextUpperCase = styled(Text)`
 	text-transform: capitalize;
 `;
-
-type LabelFactoryProps = {
-	selected: [{ label: string; value: string }];
-	label: string;
-	open: boolean;
-	focus: boolean;
-};
 
 const LabelFactory = ({ selected, label, open, focus }: LabelFactoryProps): ReactElement => (
 	<ColorContainer

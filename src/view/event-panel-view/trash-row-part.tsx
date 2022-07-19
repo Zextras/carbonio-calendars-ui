@@ -38,7 +38,7 @@ export const TrashRow = ({ event }: { event: EventType }): ReactElement => {
 	const attachments = useMemo(() => findAttachments(invite?.parts ?? [], []), [invite]);
 
 	return (
-		<Container takeAvailableSpace padding={{ all: 'small' }}>
+		<Container padding={{ all: 'small' }}>
 			<Row orientation="horizontal" width="100%" mainAlignment="flex-start">
 				<Row width="auto%">
 					<Text size="large" overflow="break-word">
@@ -72,7 +72,7 @@ export const TrashRow = ({ event }: { event: EventType }): ReactElement => {
 				</Row>
 				<Row width="10%" orientation="horizontal">
 					{event.resource.location && event.resource.location.length > 0 && (
-						<Text size="large" wieght="bold">
+						<Text size="large" weight="bold">
 							{event.resource.location}
 						</Text>
 					)}

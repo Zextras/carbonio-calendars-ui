@@ -16,7 +16,9 @@ import {
 	Row,
 	Text,
 	Tooltip,
-	useTheme
+	useTheme,
+	ContainerProps,
+	TextProps
 } from '@zextras/carbonio-design-system';
 import { PreviewsManagerContext } from '@zextras/carbonio-ui-preview';
 import { getFileExtension, calcColor } from '../../commons/utilities';
@@ -40,7 +42,9 @@ const AttachmentHoverBarContainer = styled(Container)`
 	height: 0;
 `;
 
-const AttachmentContainer = styled(Container)`
+const AttachmentContainer = styled(Container)<
+	ContainerProps & { isComplete: boolean; disabled: boolean }
+>`
 	border-radius: 2px;
 	width: ${({ isComplete }): string => (isComplete ? 'calc(25% - 8px)' : 'calc(50% - 8px)')};
 	transition: 0.2s ease-out;
@@ -48,14 +52,15 @@ const AttachmentContainer = styled(Container)`
 	margin-right: ${({ theme }): string => theme.sizes.padding.small};
 	box-sizing: border-box;
 	&:hover {
-		background-color: ${({ theme, background, disabled }): string =>
+		background-color: ${({ theme, background = 'transparent', disabled }): string =>
 			disabled ? 'gray5' : theme.palette[background].hover};
 		& ${AttachmentHoverBarContainer} {
 			display: flex;
 		}
 	}
 	&:focus {
-		background-color: ${({ theme, background }): string => theme.palette[background].focus};
+		background-color: ${({ theme, background = 'transparent' }): string =>
+			theme.palette[background].focus};
 	}
 	cursor: ${({ disabled }): string => (disabled ? 'default' : 'pointer')};
 `;
@@ -66,7 +71,9 @@ const AttachmentLink = styled.a`
 	text-decoration: none;
 `;
 
-const AttachmentExtension = styled(Text)`
+const AttachmentExtension = styled(Text)<
+	TextProps & { background?: { extension: string; color: string } }
+>`
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -74,7 +81,7 @@ const AttachmentExtension = styled(Text)`
 	height: 32px;
 	border-radius: ${({ theme }): string => theme.borderRadius};
 	background-color: ${({ theme, disabled, background }): string =>
-		disabled ? theme.palette.primary.disabled : background.color || theme.palette.primary.regular};
+		disabled ? theme.palette.primary.disabled : background?.color || theme.palette.primary.regular};
 	color: ${({ theme }): string => theme.palette.gray6.regular};
 	font-size: calc(${({ theme }): string => theme.sizes.font.small} - 2px);
 	text-transform: uppercase;

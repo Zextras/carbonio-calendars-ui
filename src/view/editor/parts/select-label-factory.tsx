@@ -4,7 +4,18 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 import React, { ReactElement } from 'react';
-import { Container, Padding, Text, Row, Icon } from '@zextras/carbonio-design-system';
+import {
+	Container,
+	Padding,
+	Text,
+	Row,
+	Icon,
+	TextProps,
+	IconProps,
+	SelectProps,
+	SelectItem,
+	LabelFactoryProps
+} from '@zextras/carbonio-design-system';
 import styled from 'styled-components';
 
 export const Square = styled.div`
@@ -25,7 +36,7 @@ export const TextUpperCase = styled(Text)`
 		disabled ? theme.palette.text.disabled : theme.palette.text.regular}}
 `;
 
-export const LabelText = styled(Text)`
+export const LabelText = styled(Text)<TextProps & { showPrimary?: boolean }>`
 color: ${({ theme, disabled, showPrimary }): string =>
 	// eslint-disable-next-line no-nested-ternary
 	disabled
@@ -34,7 +45,7 @@ color: ${({ theme, disabled, showPrimary }): string =>
 		? theme.palette.primary.regular
 		: theme.palette.secondary.regular}}`;
 
-export const StyledIcon = styled(Icon)`
+export const StyledIcon = styled(Icon)<IconProps & { showPrimary?: boolean }>`
 color: ${({ theme, disabled, showPrimary }): string =>
 	// eslint-disable-next-line no-nested-ternary
 	disabled
@@ -43,20 +54,21 @@ color: ${({ theme, disabled, showPrimary }): string =>
 		? theme.palette.primary.regular
 		: theme.palette.secondary.regular}}`;
 
-type LabelFactoryProps = {
-	selected: [{ label: string; value: string; color: string }];
-	label: string;
-	open: boolean;
-	focus: boolean;
-	disabled: boolean;
-};
+interface CustomSelectItem extends SelectItem {
+	color?: string;
+}
+
+interface CustomLabelFactoryProps extends LabelFactoryProps {
+	selected: CustomSelectItem[];
+}
+
 const LabelFactory = ({
 	selected,
 	label,
 	open,
 	focus,
 	disabled
-}: LabelFactoryProps): ReactElement => (
+}: CustomLabelFactoryProps): ReactElement => (
 	<ColorContainer
 		orientation="horizontal"
 		width="fill"
@@ -67,7 +79,6 @@ const LabelFactory = ({
 			all: 'small'
 		}}
 		background="gray5"
-		disabled={disabled}
 		style={{ cursor: disabled ? 'no-drop' : 'pointer' }}
 	>
 		<Row width="100%" takeAvailableSpace mainAlignment="space-between">
@@ -77,9 +88,9 @@ const LabelFactory = ({
 				mainAlignment="flex-start"
 				padding={{ left: 'small' }}
 			>
-				<Text size="small" disabled={disabled} showPrimary={open || focus}>
+				<LabelText size="small" disabled={disabled} showPrimary={open || focus}>
 					{label}
-				</Text>
+				</LabelText>
 				<Row>
 					<Padding right="small">
 						<Square color={selected[0].color} disabled={disabled} />

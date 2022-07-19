@@ -9,7 +9,7 @@ import { extractCalendars } from '../../utils/store/calendars';
 
 export const createCalendar = createAsyncThunk(
 	'calendars/create',
-	async ({ name, parent, color, excludeFreeBusy }: any, { dispatch, requestId }) => {
+	async ({ name, parent, color, excludeFreeBusy }: any, { requestId }) => {
 		const { folder } = (await soapFetch('CreateFolder', {
 			_jsns: 'urn:zimbraMail',
 			folder: {

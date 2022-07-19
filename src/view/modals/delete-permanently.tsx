@@ -12,7 +12,6 @@ import { ModalHeader } from '../../commons/modal-header';
 import { deleteAppointmentPermanent } from '../../store/actions/delete-appointment-permanent';
 import { ActionsContext } from '../../types/actions';
 import { EventType } from '../../types/event';
-import { Invite } from '../../types/store/invite';
 
 type DeletePermanentlyProps = {
 	onClose: () => void;
