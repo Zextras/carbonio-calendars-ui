@@ -27,7 +27,7 @@ export const ReplyButtonsPart = ({
 			dispatch(
 				sendInviteResponse({
 					inviteId,
-					updateOrganizer: false,
+					updateOrganizer: true,
 					action
 				})
 			);

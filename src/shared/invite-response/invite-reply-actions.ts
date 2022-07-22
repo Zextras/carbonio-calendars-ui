@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 /* eslint-disable import/extensions */
+import { replaceHistory } from '@zextras/carbonio-shell-ui';
 import { TFunction } from 'i18next';
 import { Dispatch } from 'redux';
 import { sendInviteResponse } from '../../store/actions/send-invite-response';
@@ -17,6 +18,7 @@ type ResponseAction = {
 	activeCalendar: any;
 	t: TFunction;
 	createSnackbar: any;
+	parent: string;
 };
 export const sendResponse = ({
 	inviteId,
@@ -26,7 +28,8 @@ export const sendResponse = ({
 	dispatch,
 	t,
 	activeCalendar,
-	createSnackbar
+	createSnackbar,
+	parent
 }: ResponseAction): void => {
 	dispatch(
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -38,6 +41,9 @@ export const sendResponse = ({
 		})
 	).then((res: any): void => {
 		if (res.type.includes('fulfilled')) {
+			if (parent) {
+				replaceHistory(`/folder/${parent}`);
+			}
 			const snackbarLabel =
 				// eslint-disable-next-line no-nested-ternary
 				action === 'ACCEPT'

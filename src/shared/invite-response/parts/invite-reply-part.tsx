@@ -25,12 +25,14 @@ type InviteReplyPart = {
 	participationStatus: string;
 	compNum: string;
 	proposeNewTime: () => void;
+	parent: string;
 };
 const InviteReplyPart: FC<InviteReplyPart> = ({
 	inviteId,
 	participationStatus,
 	compNum,
-	proposeNewTime
+	proposeNewTime,
+	parent
 }): ReactElement => {
 	const [notifyOrganizer, setNotifyOrganizer] = useState(true);
 	const [activeCalendar, setActiveCalendar] = useState(null);
@@ -51,10 +53,11 @@ const InviteReplyPart: FC<InviteReplyPart> = ({
 					compNum,
 					notifyOrganizer,
 					activeCalendar,
-					dispatch
+					dispatch,
+					parent
 				});
 			},
-		[dispatch, inviteId, compNum, notifyOrganizer, activeCalendar, t, createSnackbar]
+		[dispatch, inviteId, compNum, notifyOrganizer, activeCalendar, t, createSnackbar, parent]
 	);
 	return (
 		<>

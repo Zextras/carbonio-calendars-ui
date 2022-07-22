@@ -43,7 +43,7 @@ export const acceptInvitation =
 			.dispatch(
 				sendInviteResponse({
 					inviteId: event.resource.inviteId,
-					updateOrganizer: false,
+					updateOrganizer: true,
 					action: 'ACCEPT'
 				})
 			)
@@ -60,7 +60,7 @@ export const declineInvitation =
 			.dispatch(
 				sendInviteResponse({
 					inviteId: event.resource.inviteId,
-					updateOrganizer: false,
+					updateOrganizer: true,
 					action: 'DECLINE'
 				})
 			)
@@ -77,7 +77,7 @@ export const acceptAsTentative =
 			.dispatch(
 				sendInviteResponse({
 					inviteId: event.resource.inviteId,
-					updateOrganizer: false,
+					updateOrganizer: true,
 					action: 'TENTATIVE'
 				})
 			)
